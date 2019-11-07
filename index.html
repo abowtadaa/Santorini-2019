@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My document</title>
+</head>
+
+<body>
+
+<div id="container"></div>
+
+</body>
+
+<script>
+
+    let container = document.getElementById("container");
+    // ---------------------------------------
+    async function sendRequest() {
+
+        let url = "http://localhost:8000/";
+
+        let updata =  {
+            userName: "AbowTadaa",
+            UserId: 1,
+            e_mail:"johan17@uia.no"
+        };
+
+        let cfg = {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(updata)
+        };
+
+        try {
+            let resp = await fetch(url, cfg);
+            let data = await resp.text();
+            //container.innerHTML = "";
+
+            console.log(data); //hello from POST
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    sendRequest();
+
+</script>
+
+</html>
