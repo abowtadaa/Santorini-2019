@@ -1,7 +1,7 @@
 {
   "name": "santorini",
   "version": "1.0.0",
-  "description": "",
+  "description": "Santorini game",
   "main": "game.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,14 +10,13 @@
     "type": "git",
     "url": "git+https://github.com/abowtadaa/Santorini.git"
   },
-  "author": "Group:JN",
+  "author": "JN, TH,THSS\u001b[D\u001b[D\u001b[D\u001b[D THSS",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/abowtadaa/Santorini/issues"
   },
   "homepage": "https://github.com/abowtadaa/Santorini#readme",
   "dependencies": {
-    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1"
   }

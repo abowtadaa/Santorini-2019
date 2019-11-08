@@ -1,27 +1,29 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');//when the clients aren't on the server
-
-const app = express();
+const cors = require('cors'); //when the clients aren't on the server
+const app = express(); //server-app
 
 const DEFAULT_PORT = 8000;
 
-const HTTP_CODES = {
-    NOT_FOUND: 404,
-    OK: 200
-};
-
+// middleware ------------------------------------
 app.set('port', (process.env.PORT || DEFAULT_PORT));
 app.use(cors()); //allow all CORS requests
-app.use(express.static('public'));
 app.use(express.json()); //for extracting json in the request-body
+app.use('/', express.static('client')); //for serving client files
 
-app.post("/"), function (req,res){
-    console.log(req.body.userName)
-    res.status(200).send("Hello from post");
-}
+// -----------------------------------------------
 
+// endpoint GET ----------------------------------
+app.get('/', function (req, res) {
+    // code here...
+    res.status(200).send("hello from GET"); //send response
+});
 
+// endpoint POST ---------------------------------
+app.post('/', function (req, res) {
+    // code here...
+    console.log(req.body.country); //Belgium
+    res.status(200).send("hello from POST"); //send response
+});
 
 
 app.listen(app.get('port'), function () {

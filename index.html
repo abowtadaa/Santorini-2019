@@ -22,13 +22,12 @@
         let url = "http://localhost:8000/";
 
         let updata =  {
-            userName: "AbowTadaa",
-            UserId: 1,
-            e_mail:"johan17@uia.no"
+            country: "Belgium",
+            capital: "Brussels"
         };
 
         let cfg = {
-            method: "POST",
+            method: "GET",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(updata)
         };
@@ -36,7 +35,13 @@
         try {
             let resp = await fetch(url, cfg);
             let data = await resp.text();
-            //container.innerHTML = "";
+            container.innerHTML = "";
+            let HTML =`
+            <p3>${data}</p3>
+            `;
+            let div = document.createElement("div");
+            div.innerHTML = HTML;
+            container.appendChild(div);
 
             console.log(data); //hello from POST
         }
