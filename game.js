@@ -21,8 +21,8 @@ app.get('/', function (req, res) {
 // endpoint POST ---------------------------------
 app.post('/', function (req, res) {
     // code here...
-    console.log(req.body.country); //Belgium
-    res.status(200).send("hello from POST"); //send response
+    console.log(req.body); //New user
+    res.status(200).send("Plz verify your user!"); //send response
 });
 
 
