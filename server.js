@@ -3,7 +3,7 @@ const cors = require('cors'); //when the clients aren't on the server
 const app = express(); //server-app
 const userRoutes = require("./routs/user.js");
 const pg = require('pg');
-const dbURI = "postgres://uuvcwgoifcnizu:2316c7908138ef053a96645eb6abd39e84e8b36b86f73309cee43f32b4533110@ec2-54-247-92-167.eu-west-1.compute.amazonaws.com:5432/ddov05lflkkq5f";
+const dbURI = "postgres://uuvcwgoifcnizu:2316c7908138ef053a96645eb6abd39e84e8b36b86f73309cee43f32b4533110@ec2-54-247-92-167.eu-west-1.compute.amazonaws.com:5432/ddov05lflkkq5f" + "?ssl=true";
 const connstring = process.env.DATABASE_URL || dbURI;
 const pool = new pg.Pool ({ connectionString: connstring });
 
@@ -27,7 +27,9 @@ app.get('/users',  async function (req, res) {
     let sql = 'SELECT * from users';
     try {
       let result = await pool.query(sql);
+      console.log(result);
       res.status(200).json(result.rows);
+
     }
     catch(err) {
       res.status(500).json({error: err});
