@@ -1,17 +1,43 @@
-function (userName,ID){
-    this.userName = userName;
-    this.UserID = ID
-    this.password
+// i route-filen angitt over
+const express = require('express');
+const route = express.Router();
+let user = null;
 
-    this.returnUser = function (){
-        return this.userID;
-    }
-}
+//route.post( [more code] )
+route.get('/user',function () {
 
-app.post("/user/:userName"), function (req,res){
-    let user {
-        userName = req.params.userName;
-        userID = ID;
-        userVerification = true;
+    console.log(user);
+})
+route.post('/login', function (req,res){
+    if(user) {
+        if (user.userName === req.body.userName && user.password === req.body.password) {
+            console.log("You are logged in");
+            res.status(200).send(user.statistics);
+        }else{
+            console.log("Wrong password");
+            res.status(403).send("Wrong username or password try agagin")
+        }
     }
-}
+
+} )
+route.post('/register', function (req,res){
+
+    user = new userRegistration(req.body);
+    console.log(user);
+} )
+
+module.exports = route;
+
+    function userRegistration (reqBody) {
+        this.userName = reqBody.userName;
+        this.password = reqBody.password;
+        this.statistics= {
+            win:0,
+            defeat:0
+        }
+        this.wins = 0;
+        this.defeat = 0;
+    }
+
+
+

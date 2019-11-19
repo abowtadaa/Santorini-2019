@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My document</title>
+</head>
+<body>
+
+<div>
+    <h3>Santorini</h3>
+</div>
+<div>
+    <button onclick="btnhome()">Home</button>
+    <button>Games</button>
+    <button onclick="btnlogin()">Login</button>
+</div>
+
+<label for="userName" >User Name</label>
+<button onclick="btnregister()">Register</button>
+<br>
+<input id="userName" value="abowtadaa">
+<br>
+<label for="password">Password</label>
+<br>
+<input  id="password" value="grimstad123">
+<br>
+<button onclick="btnlogin()">Login</button>
+
+<div id="container"></div>
+
+
+
+<!-- HTML elements here... -->
+
+</body>
+
+<script>
+    let userName = document.getElementById("userName");
+    let password = document.getElementById("password");
+    async function sendRequest() {
+
+
+
+
+            let url = "http://localhost:8000/users/login";
+
+            let updata = {
+                userName: userName.value,
+                password: password.value
+            };
+
+            let cfg = {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(updata)
+            };
+
+            try {
+                let resp = await fetch(url, cfg);
+                let data = await resp.text();
+                //container.innerHTML = "";
+                let HTML = `
+            <p3>${data}</p3>
+            `;
+                let div = document.createElement("div");
+                div.innerHTML = HTML;
+                container.appendChild(div);
+
+                console.log(data); //hello from POST
+            }
+            catch (err) {
+                console.log(err);
+            }
+
+    }
+
+
+    function btnregister() {
+        window.location.href="register.html"
+    }
+
+    function btnlogin() {
+        sendRequest();
+        console.log("Login")
+    }
+
+    function btnhome(){
+        window.location.href="index.html";
+    }
+
+    /* JavaScript here... */
+
+</script>
+
+</html>

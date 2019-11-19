@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My document</title>
+    <script src="../../Primegame/game.js"></script>
+
+</head>
+<body>
+    <div>
+        <h3>Santorini</h3>
+    </div>
+    <div>
+        <button onclick="btnhome()">Home</button>
+        <button>Games</button>
+        <button onclick="btnlogin()">Login</button>
+    </div>
+    <div>
+        <canvas id="canvas" width="400" height="400"></canvas>
+    </div>
+    <div>
+        <div id="container">
+            <textarea readonly id="chatOutput" rows="4" cols="50" wrap="hard">Chat with your opponent</textarea>
+        </div>
+        <label for="chat">Chat</label>
+        <input id="chat">
+        <button onclick="btnsendChat()">Send</button>
+    </div>
+<!-- HTML elements here... -->
+
+</body>
+
+<script>
+    function btnlogin() {
+        window.location.href="login.html";
+    }
+    function btnhome(){
+        window.location.href="index.html";
+    }
+    function btnsendChat() {
+        console.log("Hello from button chat");
+        sendChat();
+    }
+    let chat = document.getElementById("chat");
+    let chatOutput = document.getElementById("chatOutput");
+
+    let container = document.getElementById("container");
+
+    async function sendChat () {
+        let url = "http://localhost:8000/game-chat";
+
+
+
+        let updata = {
+            chat:chat.value
+        };
+
+        let cfg = {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(updata)
+        };
+
+
+
+        try {
+            let resp = await fetch(url, cfg);
+            let data = await resp.text();
+            data = JSON.parse(data);
+            chatOutput.value+=`\n`;
+            chatOutput.value += data.chat;
+            chat.value="";
+
+            console.log(data); //hello from POST
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    /* JavaScript here... */
+
+</script>
+
+</html>

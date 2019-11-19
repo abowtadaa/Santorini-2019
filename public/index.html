@@ -9,6 +9,18 @@
 
 <body>
 
+<div>
+    <h3>Santorini</h3>
+</div>
+<div>
+    <button onclick="btnhome()">Home</button>
+    <button>Games</button>
+</div>
+
+<div>
+    <button onclick="btnLogin()">Login</button>
+</div>
+
 <div id="container"></div>
 
 </body>
@@ -21,17 +33,9 @@
 
         let url = "http://localhost:8000/";
 
-        let updata =  {
-            userName: "Abowtadaa",
-            eMail: "johannes@hotmail.com",
-            password: "thisisthepassword"
-        };
 
-        let cfg = {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(updata)
-        };
+
+
 
         try {
             let resp = await fetch(url, cfg);
@@ -51,7 +55,14 @@
         }
     }
 
-    sendRequest();
+    //sendRequest();
+
+    function btnLogin(){
+        window.location.href = "login.html"
+    }
+    function btnhome(){
+        window.location.href="index.html";
+    }
 
 </script>
 
