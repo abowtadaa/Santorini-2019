@@ -15,13 +15,19 @@ route.post('/login', function (req,res){
             res.status(200).send(user.statistics);
         }else{
             console.log("Wrong password");
-            res.status(403).send("Wrong username or password try agagin")
+            res.status(403).send("Wrong username or password try again")
         }
     }
 
 } )
 route.post('/register', function (req,res){
+    /*
+    if(isNotRegistered()){
 
+    }else{
+    res.status()
+    }
+     */
     user = new userRegistration(req.body);
     console.log(user);
 } )
@@ -39,5 +45,8 @@ module.exports = route;
         this.defeat = 0;
     }
 
+    function isNotRegistered () {
+
+    }
 
 

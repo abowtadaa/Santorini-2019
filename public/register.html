@@ -25,11 +25,11 @@
     <br>
     <label for="e-mail">Your e-mail</label>
     <br>
-    <input  id="e-mail">
+    <input  id="e-mail" value="johannes_ailo@hotmail.com">
     <br>
     <label for="e-mail-check">Write down your e-mail one more time</label>
     <br>
-    <input  id="e-mail-check">
+    <input  id="e-mail-check" value="johannes_ailo@hotmail.com">
     <br>
     <label for="password">Password</label>
     <br>
@@ -46,11 +46,12 @@
 
 <script>
     let container = document.getElementById("container");
+    let eMail = document.getElementById("e-mail");
+    let eMailCheck = document.getElementById("e-mail-check");
+    let userName = document.getElementById("userName");
+    let password = document.getElementById("password");
     function btnregisterUser () {
-        let eMail = document.getElementById("e-mail");
-        let eMailCheck = document.getElementById("e-mail-check");
-        let userName = document.getElementById("userName");
-        let password = document.getElementById("password");
+
         console.log(userName.value);
         console.log(password.value);
 
@@ -60,39 +61,48 @@
 
     async function sendRequest() {
 
+        if(eMail.value===eMailCheck.value) {
+            if (checkUser(userName.value)) {
 
-        if(checkUser(userName.value)) {
+                let url = "http://localhost:8000/users/register";
 
-            let url = "http://localhost:8000/users/register";
+                let updata = {
+                    userName: userName.value,
+                    eMail: eMail.value,
+                    password: password.value
+                };
 
-            let updata = {
-                userName: userName.value,
-                eMail: "johannes@hotmail.com",
-                password: password.value
-            };
+                let cfg = {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(updata)
+                };
 
-            let cfg = {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(updata)
-            };
-
-            try {
-                let resp = await fetch(url, cfg);
-                let data = await resp.text();
-                //container.innerHTML = "";
-                let HTML = `
+                try {
+                    let resp = await fetch(url, cfg);
+                    let data = await resp.text();
+                    //container.innerHTML = "";
+                    let HTML = `
             <p3>${data}</p3>
             `;
-                let div = document.createElement("div");
-                div.innerHTML = HTML;
-                container.appendChild(div);
+                    let div = document.createElement("div");
+                    div.innerHTML = HTML;
+                    container.appendChild(div);
 
-                console.log(data); //hello from POST
+                    console.log(data); //hello from POST
+                }
+                catch (err) {
+                    console.log(err);
+                }
             }
-            catch (err) {
-                console.log(err);
-            }
+        }else{
+            console.log("The email is not the same!")
+        }
+    }
+
+    function checkEmail(){
+        if(eMail.value===eMailCheck.value){
+            return true
         }
     }
 

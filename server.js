@@ -16,7 +16,7 @@ const DEFAULT_PORT = 8000;
 app.set('port', (process.env.PORT || DEFAULT_PORT));
 app.use(cors()); //allow all CORS requests
 app.use(express.json()); //for extracting json in the request-body
-app.use('/', express.static('client')); //for serving client files
+app.use('/', express.static('public')); //for serving client files
 app.use("/users", userRoutes);
 
 // -----------------------------------------------
