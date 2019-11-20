@@ -39,10 +39,28 @@ app.get('/users',  async function (req, res) {
 });
 
 // endpoint POST ---------------------------------
-app.post('/user-register', function (req, res) {
-    // code here...
-    console.log(req.body); //New user
-    res.status(200).send("Plz verify your user!"); //send response
+app.post('/users', async function (req, res) {
+    
+    let update = req.body;
+
+    let sql = 'INSERT INTO users (email, password, username) VALUES(DEFAULT, $1, 2$, 3$) RETURNING *';
+    let values = [updata.e-mail, updata.password, updata.userName];
+
+    try {
+      let result = await pool.query(sql, values);
+      
+      if (result.rows.length > 0) {
+        res.status(200).json({msg: "Insert OK"});
+      }
+      else {
+        throw "Insert failed;"
+      }
+    }
+    catch (err) {
+      res.status(500).json({error: err});
+    }
+    // console.log(req.body); //New user
+    // res.status(200).send("Plz verify your user!"); //send response
 });
 
 app.post('/game-chat', function (req,res) {
