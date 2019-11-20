@@ -37,6 +37,7 @@ module.exports = route;
     function userRegistration (reqBody) {
         this.userName = reqBody.userName;
         this.password = reqBody.password;
+        this.email = reqBody.eMail;
         this.statistics= {
             win:0,
             defeat:0

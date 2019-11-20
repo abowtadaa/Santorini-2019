@@ -40,13 +40,7 @@
         try {
             let resp = await fetch(url, cfg);
             let data = await resp.text();
-            container.innerHTML = "";
-            let HTML =`
-            <p3>${data}</p3>
-            `;
-            let div = document.createElement("div");
-            div.innerHTML = HTML;
-            container.appendChild(div);
+
 
             console.log(data); //hello from POST
         }
@@ -58,7 +52,7 @@
     //sendRequest();
 
     function btnLogin(){
-        window.location.href = "login.html"
+        window.location.href = "login.html";
     }
     function btnhome(){
         window.location.href="index.html";
