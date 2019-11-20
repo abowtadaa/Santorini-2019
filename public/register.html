@@ -1,45 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My document</title>
-    <script src="/server.js"></script>
 </head>
+
 <body>
 
-<div>
-    <h3>Santorini</h3>
-</div>
-<div>
-    <button onclick="btnhome()">Home</button>
-    <button>Games</button>
-    <button onclick="btnlogin()">Login</button>
-</div>
+    <div>
+        <h3>Santorini</h3>
+    </div>
+    <div>
+        <button onclick="btnhome()">Home</button>
+        <button>Games</button>
+        <button onclick="btnlogin()">Login</button>
+    </div>
 
-<h1>Register user</h1>
+    <h1>Register user</h1>
 
-<div id="container">
-    <label for="userName" >User Name</label>
-    <br>
-    <input id="userName" value="abowtadaa">
-    <br>
-    <label for="e-mail">Your e-mail</label>
-    <br>
-    <input  id="e-mail" value="johannes_ailo@hotmail.com">
-    <br>
-    <label for="e-mail-check">Write down your e-mail one more time</label>
-    <br>
-    <input  id="e-mail-check" value="johannes_ailo@hotmail.com">
-    <br>
-    <label for="password">Password</label>
-    <br>
-    <input  id="password" value="grimstad123">
-    <br>
-    <button onclick="btnregisterUser()">Register</button>
-</div>
+    <div id="container">
+        <label for="userName">User Name</label>
+        <br>
+        <input id="userName" value="abowtadaa">
+        <br>
+        <label for="email">Your e-mail</label>
+        <br>
+        <input id="email" value="johannes_ailo@hotmail.com">
+        <br>
+        <label for="email-check">Write down your e-mail one more time</label>
+        <br>
+        <input id="email-check" value="johannes_ailo@hotmail.com">
+        <br>
+        <label for="password">Password</label>
+        <br>
+        <input id="password" value="grimstad123">
+        <br>
+        <button id="btnregisterUser">Register</button>
+    </div>
 
-<div id="feedBack"></div>
+    <div id="feedBack"></div>
 
 
 
@@ -51,86 +52,92 @@
     let eMailCheck = document.getElementById("e-mail-check");
     let userName = document.getElementById("userName");
     let password = document.getElementById("password");
-    function btnregisterUser () {
+    let btnregisterUser = document.getElementById("btnregisterUser");
+    /*function btnregisterUser () {
 
         console.log(userName.value);
         console.log(password.value);
 
         sendRequest();
 
-    }
+    }*/
+    btnregisterUser.addEventListener('click', async function (evt) {
+        let url = "http://localhost:8000/users";
 
-    async function sendRequest() {
+        let updata = {
+            userName: userName.value,
+            email: email.value,
+            password: password.value
+        };
 
-        if(eMail.value===eMailCheck.value) {
+        let cfg = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updata)
+        };
+
+        try {
+            let resp = await fetch(url, cfg);
+            let data = await resp.text();
+        }
+        catch (err) {
+            console.log(err);
+        }
+    });
+
+
+    /*async function sendRequest() {
+
+        if (eMail.value === eMailCheck.value) {
             if (checkUser(userName.value)) {
 
-                let url = "http://localhost:8000/users/register";
 
-                let updata = {
-                    userName: userName.value,
-                    eMail: eMail.value,
-                    password: password.value
-                };
-
-                let cfg = {
-                    method: "POST",
-                    headers: {"Content-Type": "application/json"},
-                    body: JSON.stringify(updata)
-                };
-
-                try {
-                    let resp = await fetch(url, cfg);
-                    let data = await resp.text();
-                    //container.innerHTML = "";
-                    let HTML = `
+                //container.innerHTML = "";
+                let HTML = `
             <p3>${data}</p3>
             `;
-                    let div = document.createElement("div");
-                    div.innerHTML = HTML;
-                    container.appendChild(div);
+                let div = document.createElement("div");
+                div.innerHTML = HTML;
+                container.appendChild(div);
 
-                    console.log(data); //hello from POST
-                }
-                catch (err) {
-                    console.log(err);
-                }
+                console.log(data); //hello from POST
             }
-        }else{
+
+        } else {
             console.log("The email is not the same!")
         }
-    }
+    }*/
 
-    function checkEmail(){
-        if(eMail.value===eMailCheck.value){
+    function checkEmail() {
+        if (eMail.value === eMailCheck.value) {
             return true
         }
     }
 
     function checkUser(input) {
         let output = input;
-        if(input) {
+        if (input) {
             let whitespace = /\s/.test(input);
-            if(whitespace) {
+            if (whitespace) {
                 console.log("You cant have spaces in your username!");
                 return false
             }
             let slashes = /\//.test(output);
-            if(slashes) {
+            if (slashes) {
                 sendError("You cant have slashes in your username!");
                 return false
             }
             let questions = /\?/.test(output);
-            if(questions){
+            if (questions) {
                 sendError("You cant have '?' in your username!");
                 return false;
             }
             let percent = /%/.test(output);
-            if(percent) {
+            if (percent) {
                 sendError("You cant have '%' in your username!");
                 return false;
             }
-            if(!output) {
+            if (!output) {
                 sendError("Valid usernames are filtered for whitespace, forward slashes, questions marks and percent signs.");
                 return null;
             }
@@ -141,15 +148,15 @@
         }
     }
 
-    function sendError (err) {
+    function sendError(err) {
         console.log(err);
     }
 
     function btnlogin() {
-        window.location.href="login.html";
+        window.location.href = "login.html";
     }
-    function btnhome(){
-        window.location.href="index.html";
+    function btnhome() {
+        window.location.href = "index.html";
     }
     /* JavaScript here... */
 

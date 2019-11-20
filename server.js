@@ -41,10 +41,10 @@ app.get('/users', async function (req, res) {
 // endpoint POST ---------------------------------
 app.post('/users', async function (req, res) {
 
-  let update = req.body;
+  let updata = req.body;
 
   let sql = 'INSERT INTO users (email, password, username) VALUES(DEFAULT, $1, 2$, 3$) RETURNING *';
-  let values = [updata.e - mail, updata.password, updata.userName];
+  let values = [updata.email, updata.password, updata.userName];
 
   try {
     let result = await pool.query(sql, values);
