@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My document</title>
 
 </head>
+
 <body>
     <div>
         <h3>Santorini</h3>
@@ -26,16 +28,16 @@
         <input id="chat">
         <button onclick="btnsendChat()">Send</button>
     </div>
-<!-- HTML elements here... -->
+    <!-- HTML elements here... -->
 
 </body>
 
 <script>
     function btnlogin() {
-        window.location.href="login.html";
+        window.location.href = "login.html";
     }
-    function btnhome(){
-        window.location.href="index.html";
+    function btnhome() {
+        window.location.href = "index.html";
     }
     function btnsendChat() {
         console.log("Hello from button chat");
@@ -46,18 +48,18 @@
 
     let container = document.getElementById("container");
 
-    async function sendChat () {
+    async function sendChat() {
         let url = "http://localhost:8000/game-chat";
 
 
 
         let updata = {
-            chat:chat.value
+            chat: chat.value
         };
 
         let cfg = {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updata)
         };
 
@@ -67,9 +69,9 @@
             let resp = await fetch(url, cfg);
             let data = await resp.text();
             data = JSON.parse(data);
-            chatOutput.value+=`\n`;
+            chatOutput.value += `\n`;
             chatOutput.value += data.chat;
-            chat.value="";
+            chat.value = "";
 
             console.log(data); //hello from POST
         }
