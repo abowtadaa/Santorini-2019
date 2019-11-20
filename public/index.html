@@ -9,19 +9,19 @@
 
 <body>
 
-<div>
-    <h3>Santorini</h3>
-</div>
-<div>
-    <button onclick="btnhome()">Home</button>
-    <button>Games</button>
-</div>
+    <div>
+        <h3>Santorini</h3>
+    </div>
+    <div>
+        <button onclick="btnhome()">Home</button>
+        <button>Games</button>
+    </div>
 
-<div>
-    <button onclick="btnLogin()">Login</button>
-</div>
+    <div>
+        <button onclick="btnLogin()">Login</button>
+    </div>
 
-<div id="container"></div>
+    <div id="container"></div>
 
 </body>
 
@@ -41,7 +41,7 @@
             let resp = await fetch(url, cfg);
             let data = await resp.text();
             container.innerHTML = "";
-            let HTML =`
+            let HTML = `
             <p3>${data}</p3>
             `;
             let div = document.createElement("div");
@@ -57,11 +57,11 @@
 
     //sendRequest();
 
-    function btnLogin(){
+    function btnLogin() {
         window.location.href = "login.html"
     }
-    function btnhome(){
-        window.location.href="index.html";
+    function btnhome() {
+        window.location.href = "index.html";
     }
 
 </script>

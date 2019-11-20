@@ -5,7 +5,7 @@ const userRoutes = require("./routs/user.js");
 const pg = require('pg');
 const dbURI = "postgres://uuvcwgoifcnizu:2316c7908138ef053a96645eb6abd39e84e8b36b86f73309cee43f32b4533110@ec2-54-247-92-167.eu-west-1.compute.amazonaws.com:5432/ddov05lflkkq5f" + "?ssl=true";
 const connstring = process.env.DATABASE_URL || dbURI;
-const pool = new pg.Pool ({ connectionString: connstring });
+const pool = new pg.Pool({ connectionString: connstring });
 
 
 const DEFAULT_PORT = 8000;
@@ -22,57 +22,57 @@ app.use("/users", userRoutes);
 // -----------------------------------------------
 
 // endpoint GET ----------------------------------
-app.get('/users',  async function (req, res) {
+app.get('/users', async function (req, res) {
 
-    let sql = 'SELECT * from users';
-    try {
-      let result = await pool.query(sql);
-      console.log(result);
-      res.status(200).json(result.rows);
+  let sql = 'SELECT * from users';
+  try {
+    let result = await pool.query(sql);
+    console.log(result);
+    res.status(200).json(result.rows);
 
-    }
-    catch(err) {
-      res.status(500).json({error: err});
-    }
+  }
+  catch (err) {
+    res.status(500).json({ error: err });
+  }
 
-    res.status(200).send("hello from GET"); //send response
+  res.status(200).send("hello from GET"); //send response
 });
 
 // endpoint POST ---------------------------------
 app.post('/users', async function (req, res) {
-    
-    let update = req.body;
 
-    let sql = 'INSERT INTO users (email, password, username) VALUES(DEFAULT, $1, 2$, 3$) RETURNING *';
-    let values = [updata.e-mail, updata.password, updata.userName];
+  let update = req.body;
 
-    try {
-      let result = await pool.query(sql, values);
-      
-      if (result.rows.length > 0) {
-        res.status(200).json({msg: "Insert OK"});
-      }
-      else {
-        throw "Insert failed;"
-      }
+  let sql = 'INSERT INTO users (email, password, username) VALUES(DEFAULT, $1, 2$, 3$) RETURNING *';
+  let values = [updata.e - mail, updata.password, updata.userName];
+
+  try {
+    let result = await pool.query(sql, values);
+
+    if (result.rows.length > 0) {
+      res.status(200).json({ msg: "Insert OK" });
     }
-    catch (err) {
-      res.status(500).json({error: err});
+    else {
+      throw "Insert failed;"
     }
-    // console.log(req.body); //New user
-    // res.status(200).send("Plz verify your user!"); //send response
+  }
+  catch (err) {
+    res.status(500).json({ error: err });
+  }
+  // console.log(req.body); //New user
+  // res.status(200).send("Plz verify your user!"); //send response
 });
 
-app.post('/game-chat', function (req,res) {
-    //console.log((req.body)); //Send chat
-    res.status(200).send(req.body);
+app.post('/game-chat', function (req, res) {
+  //console.log((req.body)); //Send chat
+  res.status(200).send(req.body);
 });
 
-app.get("/user-login", function (req,res){
+app.get("/user-login", function (req, res) {
 
 });
 
 
 app.listen(app.get('port'), function () {
-    console.log('server running', app.get('port'));
+  console.log('server running', app.get('port'));
 });
