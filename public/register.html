@@ -8,49 +8,32 @@
 </head>
 
 <body>
+    <h3>Santorini</h3>
 
-    <div>
-        <h3>Santorini</h3>
-    </div>
-    <div>
-        <button onclick="btnhome()">Home</button>
-        <button>Games</button>
-        <button onclick="btnlogin()">Login</button>
-    </div>
+    <button onclick="btnhome()">Home</button>
+    <button>Games</button>
+    <button onclick="btnlogin()">Login</button>
 
-    <h1>Register user</h1>
+    <h1>Sign up</h1>
 
     <div id="container">
-        <label for="userName">User Name</label>
+        <input type="text" id="username" placeholder="User name">
+        <input type="text" id="inpEmail" placeholder="E-mail">
         <br>
-        <input id="userName" value="abowtadaa">
-        <br>
-        <label for="email">Your e-mail</label>
-        <br>
-        <input id="email" value="johannes_ailo@hotmail.com">
-        <br>
-        <label for="email-check">Write down your e-mail one more time</label>
-        <br>
-        <input id="email-check" value="johannes_ailo@hotmail.com">
-        <br>
-        <label for="password">Password</label>
-        <br>
-        <input id="password" value="grimstad123">
-        <br>
-        <button id="btnregisterUser">Register</button>
+        <input type="password" id="inpPassword" placeholder="Password">
+        <br><br>
+        <button id="btnregisterUser">Create user</button>
+        <h3 id="txtResult">Result...</h3>
     </div>
-
-    <div id="feedBack"></div>
-
-
 
 </body>
 
 <script>
+
     let container = document.getElementById("container");
-    let eMail = document.getElementById("e-mail");
-    let eMailCheck = document.getElementById("e-mail-check");
-    let userName = document.getElementById("userName");
+    let inpEmail = document.getElementById("inpEmail");
+    //let eMailCheck = document.getElementById("e-mail-check");
+    let username = document.getElementById("username");
     let password = document.getElementById("password");
     let btnregisterUser = document.getElementById("btnregisterUser");
     /*function btnregisterUser () {
@@ -65,9 +48,9 @@
         let url = "http://localhost:8000/users";
 
         let updata = {
-            userName: userName.value,
-            email: email.value,
-            password: password.value
+            username: username.value,
+            email: inpEmail.value,
+            password: inpPassword.value
         };
 
         let cfg = {
@@ -78,7 +61,9 @@
 
         try {
             let resp = await fetch(url, cfg);
-            let data = await resp.text();
+            console.log(resp);
+            let data = await resp.json();
+            txtResult.innerHTML = data.msg;
         }
         catch (err) {
             console.log(err);
@@ -108,7 +93,7 @@
         }
     }*/
 
-    function checkEmail() {
+    /*function checkEmail() {
         if (eMail.value === eMailCheck.value) {
             return true
         }

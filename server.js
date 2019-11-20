@@ -1,3 +1,4 @@
+const bcryptjs = require('bcryptjs');
 const express = require('express');
 const cors = require('cors'); //when the clients aren't on the server
 const app = express(); //server-app
@@ -6,6 +7,7 @@ const pg = require('pg');
 const dbURI = "postgres://uuvcwgoifcnizu:2316c7908138ef053a96645eb6abd39e84e8b36b86f73309cee43f32b4533110@ec2-54-247-92-167.eu-west-1.compute.amazonaws.com:5432/ddov05lflkkq5f" + "?ssl=true";
 const connstring = process.env.DATABASE_URL || dbURI;
 const pool = new pg.Pool({ connectionString: connstring });
+
 
 
 const DEFAULT_PORT = 8000;
@@ -43,8 +45,10 @@ app.post('/users', async function (req, res) {
 
   let updata = req.body;
 
-  let sql = 'INSERT INTO users (email, password, username) VALUES(DEFAULT, $1, 2$, 3$) RETURNING *';
-  let values = [updata.email, updata.password, updata.userName];
+  let hash = bcryptjs.hashSync(updata.password, 10);
+
+  let sql = 'INSERT INTO users (id, email, username, pswhash) VALUES(DEFAULT, $1, 2$, 3$) RETURNING *';
+  let values = [updata.email, updata.username, hash];
 
   try {
     let result = await pool.query(sql, values);
