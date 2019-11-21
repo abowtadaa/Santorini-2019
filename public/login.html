@@ -5,29 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My document</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
-
-    <div>
-        <h3>Santorini</h3>
-    </div>
-    <div>
-        <button onclick="btnhome()">Home</button>
-        <button>Games</button>
-        <button onclick="btnlogin()">Login</button>
+    <div class="topnav">
+        <a href="index.html">Home</a>
+        <a class="active" href="login.html">Login</a>
+        <a href="register.html">Sign up</a>
+        <a href="#">Games</a>
     </div>
 
-    <label for="userName">User Name</label>
-    <button onclick="btnregister()">Sign up</button>
-    <br>
-    <input id="userName" value="abowtadaa">
-    <br>
-    <label for="password">Password</label>
-    <br>
-    <input id="password" value="grimstad123">
-    <br>
+    <h3>Santorini</h3>
+    <input type="text" id="email" placeholder="E-mail">
+    <input type="password" id="inpPassword" placeholder="Password">
+    <br><br>
     <button onclick="btnlogin()">Login</button>
+    <h3 id="textResult">Result...</h3>
 
     <div id="container"></div>
 
@@ -38,8 +32,9 @@
 </body>
 
 <script>
-    let userName = document.getElementById("userName");
+    let email = document.getElementById("email");
     let password = document.getElementById("password");
+    let textResult = document.getElementById('txtResult');
     async function sendRequest() {
 
 
@@ -48,8 +43,8 @@
         let url = "http://localhost:8000/users/login";
 
         let updata = {
-            userName: userName.value,
-            password: password.value
+            email: inpEmail.value,
+            password: inpPassword.value
         };
 
         let cfg = {
@@ -61,22 +56,18 @@
         try {
             let resp = await fetch(url, cfg);
             let data = await resp.text();
-            //container.innerHTML = "";
-            let HTML = `
-            <p3>${data}</p3>
-            `;
-            let div = document.createElement("div");
-            div.innerHTML = HTML;
-            container.appendChild(div);
 
-            console.log(data); //hello from POST
+            if (resp.status > 202) {
+                throw(data);
+            };
+
+            txtResult.innerHTML = data.email + "is logged in!";
+            sessionStorage.setItem("logindata", JSON.stringify(data));
         }
         catch (err) {
             console.log(err);
         }
-
     }
-
 
     function btnregister() {
         window.location.href = "register.html"

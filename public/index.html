@@ -5,29 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My document</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    
 </head>
 
 <body>
 
-    <div>
-        <h3>Santorini</h3>
+    <div class="topnav">
+        <a class="active" href="index.html">Home</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Sign up</a>
+        <a href="#">Games</a>
     </div>
-    <div>
-        <button onclick="btnhome()">Home</button>
-        <button>Games</button>
-    </div>
-
-    <div>
-        <button onclick="btnLogin()">Login</button>
-    </div>
-
-    <div id="container"></div>
+    <h1>Santorini</h1>
 
 </body>
 
 <script>
 
-    let container = document.getElementById("container");
     // ---------------------------------------
     async function sendRequest() {
 
@@ -53,15 +48,6 @@
     }
 
     //sendRequest();
-
-
-    function btnLogin(){
-        window.location.href = "login.html";
-    }
-
-    function btnhome() {
-        window.location.href = "index.html";
-    }
 
 </script>
 

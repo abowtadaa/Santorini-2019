@@ -5,17 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My document</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 
 </head>
 
 <body>
-    <h3>Santorini</h3>
 
-    <button onclick="btnhome()">Home</button>
-    <button>Games</button>
-    <button onclick="btnlogin()">Login</button>
-
-    <h1>Sign up</h1>
+    <div class="topnav">
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+        <a class="active" href="register.html">Sign up</a>
+        <a href="#">Games</a>
+    </div>
+    <h1>Santorini</h1>
+    <h2>Sign up</h2>
 
     <div id="container">
         <input type="text" id="username" placeholder="User name">
@@ -46,8 +49,8 @@
 
     }*/
     btnregisterUser.addEventListener('click', async function (evt) {
-        
-        let url = "http://localhost:8000/users";
+
+        let url = "http://localhost:8000/users/register";
 
         let updata = {
             username: username.value,
@@ -73,71 +76,71 @@
     });
 
 
-    /*async function sendRequest() {
-
-        if (eMail.value === eMailCheck.value) {
-            if (checkUser(userName.value)) {
-
-
-                //container.innerHTML = "";
-                let HTML = `
-            <p3>${data}</p3>
-            `;
-                let div = document.createElement("div");
-                div.innerHTML = HTML;
-                container.appendChild(div);
-
-                console.log(data); //hello from POST
-            }
-
-        } else {
-            console.log("The email is not the same!")
-        }
-    }*/
-
-    /*function checkEmail() {
-        if (eMail.value === eMailCheck.value) {
-            return true
-        }
-    }
-
-    function checkUser(input) {
-        let output = input;
-        if (input) {
-            let whitespace = /\s/.test(input);
-            if (whitespace) {
-                console.log("You cant have spaces in your username!");
-                return false
-            }
-            let slashes = /\//.test(output);
-            if (slashes) {
-                sendError("You cant have slashes in your username!");
-                return false
-            }
-            let questions = /\?/.test(output);
-            if (questions) {
-                sendError("You cant have '?' in your username!");
-                return false;
-            }
-            let percent = /%/.test(output);
-            if (percent) {
-                sendError("You cant have '%' in your username!");
-                return false;
-            }
-            if (!output) {
-                sendError("Valid usernames are filtered for whitespace, forward slashes, questions marks and percent signs.");
-                return null;
-            }
-            return true;
-        }
-        else {
-            return null;
-        }
-    }
-
-    function sendError(err) {
-        console.log(err);
-    }
+    /* async function sendRequest() {
+ 
+         if (eMail.value === eMailCheck.value) {
+             if (checkUser(userName.value)) {
+ 
+ 
+                 //container.innerHTML = "";
+                 let HTML = `
+             <p3>${data}</p3>
+             `;
+                 let div = document.createElement("div");
+                 div.innerHTML = HTML;
+                 container.appendChild(div);
+ 
+                 console.log(data); //hello from POST
+             }
+ 
+         } else {
+             console.log("The email is not the same!")
+         }
+     }
+ 
+     function checkEmail() {
+         if (eMail.value === eMailCheck.value) {
+             return true
+         }
+     }
+ 
+     function checkUser(input) {
+         let output = input;
+         if (input) {
+             let whitespace = /\s/.test(input);
+             if (whitespace) {
+                 console.log("You cant have spaces in your username!");
+                 return false
+             }
+             let slashes = /\//.test(output);
+             if (slashes) {
+                 sendError("You cant have slashes in your username!");
+                 return false
+             }
+             let questions = /\?/.test(output);
+             if (questions) {
+                 sendError("You cant have '?' in your username!");
+                 return false;
+             }
+             let percent = /%/.test(output);
+             if (percent) {
+                 sendError("You cant have '%' in your username!");
+                 return false;
+             }
+             if (!output) {
+                 sendError("Valid usernames are filtered for whitespace, forward slashes, questions marks and percent signs.");
+                 return null;
+             }
+             return true;
+         }
+         else {
+             return null;
+         }
+     }
+ 
+     function sendError(err) {
+         console.log(err);
+     }*/
 
     function btnlogin() {
         window.location.href = "login.html";

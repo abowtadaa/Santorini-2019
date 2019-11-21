@@ -35,7 +35,7 @@ route.post('/register', function (req,res){
 module.exports = route;
 
     function userRegistration (reqBody) {
-        this.userName = reqBody.userName;
+        this.username = reqBody.username;
         this.password = reqBody.password;
         this.email = reqBody.eMail;
         this.statistics= {
