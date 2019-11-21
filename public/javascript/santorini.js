@@ -132,13 +132,13 @@ function checkPossiblePlays() {
 
     board.resetValidMoves();
 
-    if (tile.pieceType === BUILDER) checkPossiblePlays(curX, curY);
+    if (tile.pieceType === BUILDER) checkPossiblePlaysBuilder(curX, curY);
 }
 
 
 
 
-function checkPossiblePlays(curX, curY) {
+function checkPossiblePlaysBuilder(curX, curY) {
     for (let i = -1; i <= 1; i++) {
         if (curY+i < 0 || curY+i > BOARD_HEIGHT-1) continue;
 
@@ -201,6 +201,8 @@ function moveSelectedPiece(x, y) {
     curY = -1;
     board.resetValidMoves();
     MODE = BUILD;
+
+    updateServer( board.tiles[y][x],{x:x,y:y})
 }
 
 function buildSelectedPiece(x, y) {
@@ -224,7 +226,9 @@ function changeCurrentTeam() {
 }
 
 function repaintBoard() {
+    console.log(curX)
     drawBoard();
+    console.log(curX)
     checkPossiblePlays();
     drawPieces();
 }
@@ -400,5 +404,35 @@ class Tile {
         this.pieceType = pieceType;
         this.team = team;
         this.buildType = 0;
+    }
+}
+
+async function updateServer (tile,pos){
+    let url = `http://localhost:8000/game/`;
+
+
+
+    let updata = {
+        tile: tile,
+        pos:pos
+    };
+
+    let cfg = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updata)
+    };
+
+
+
+    try {
+        let resp = await fetch(url, cfg);
+        let data = await resp.text();
+        data = JSON.parse(data);
+        console.log(data);
+
+    }
+    catch (err) {
+        console.log(err);
     }
 }
