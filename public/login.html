@@ -32,7 +32,7 @@
 </body>
 
 <script>
-    let email = document.getElementById("email");
+    let email = document.getElementById("inpEmail");
     let password = document.getElementById("password");
     let btnlogin = document.getElementById("btnlogin");
     let textResult = document.getElementById('txtResult');
@@ -40,6 +40,7 @@
     btnlogin.addEventListener('click', async function (evt) {
 
         let url = "http://localhost:8000/users/login";
+        console.log(inpEmail.value);
 
         let updata = {
             email: inpEmail.value,
