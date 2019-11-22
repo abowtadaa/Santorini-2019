@@ -1,6 +1,9 @@
 const BOARD_WIDTH = 5;
 const BOARD_HEIGHT = 5;
 
+let host;
+let secondPlayer;
+
 const TILE_SIZE = 50;
 const WHITE_TILE_COLOR = "rgb(255, 228, 196)";
 const BLACK_TILE_COLOR = "rgb(206, 162, 128)";
@@ -87,7 +90,6 @@ function onClick(event) {
     let x = Math.floor((event.clientX-santoriniCanvasX)/TILE_SIZE);
     let y = Math.floor((event.clientY-santoriniCanvasY)/TILE_SIZE);
 
-    console.log(board.tiles[y][x])
 
     if (checkValidMovement(x, y) === true) {
 
@@ -180,7 +182,6 @@ function checkPossibleBuild(x, y) {
 }
 
 function checkValidMovement(x, y) {
-    console.log(board.validMoves[y][x])
     if (board.validMoves[y][x] === VALID || board.validMoves[y][x] === VALID_BUILD) return true;
     else return false;
 }
@@ -226,9 +227,7 @@ function changeCurrentTeam() {
 }
 
 function repaintBoard() {
-    console.log(curX)
     drawBoard();
-    console.log(curX)
     checkPossiblePlays();
     drawPieces();
 }
@@ -408,7 +407,7 @@ class Tile {
 }
 
 async function updateServer (tile,pos){
-    let url = `http://localhost:8000/game/`;
+    let url = `http://localhost:8000/games/`;
 
 
 
@@ -417,16 +416,17 @@ async function updateServer (tile,pos){
         pos:pos
     };
 
-    let cfg = {
+    /*let cfg = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updata)
-    };
+    };*/
+    //console.log(cfg);
 
 
 
     try {
-        let resp = await fetch(url, cfg);
+        let resp = await fetch(url);
         let data = await resp.text();
         data = JSON.parse(data);
         console.log(data);

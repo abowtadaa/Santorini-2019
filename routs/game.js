@@ -1,10 +1,19 @@
 const express = require('express');
 const route = express.Router();
 
-let games = [];
+//route.post( [more code] )
+route.get("/",function (req,res){
+    console.log("You was in something");
+})
 
 
-app.get("/game/:gameId", function (req,res) {
+//route.post('/login', function ... )
+//route.post('/register', function ... )
+
+module.exports = route;
+
+
+/*app.get("/game/:gameId", function (req,res) {
     for(game of games){
         if(req.params.gameId===game.id){
             res.status(200).send(game.info);
@@ -14,7 +23,11 @@ app.get("/game/:gameId", function (req,res) {
     }
 })
 
-app.post("/game", function (req,res){
+route.get ("/",function (req,res){
+    console.log("You was in something");
+})
+
+route.post("/", function (req,res){
     console.log(req.body);
 })
 
@@ -33,3 +46,5 @@ function santoriniGame (host,gameBoard) {
         return this.gameBoard;
     }
 }
+
+*/
