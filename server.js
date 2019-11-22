@@ -3,13 +3,32 @@ const dbURI = "postgres://uuvcwgoifcnizu:2316c7908138ef053a96645eb6abd39e84e8b36
 const connstring = process.env.DATABASE_URL || dbURI;
 const pool = new pg.Pool({ connectionString: connstring });
 
-const secret = "hitlerdidnothingwrong"
+const secret = "hitlerdidnothingwrong";
 const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs');
 const express = require('express');
 const cors = require('cors'); //when the clients aren't on the server
-const app = express(); //server-app
+const app = express();//server-app
 //const userRoutes = require("./routs/user.js");
+
+let logindata;
+
+function protectEndpoints(req, res, next) {
+
+  let token = req.headers['authorization'];
+
+  if (token) {
+    try {
+      logindata = jwt.verify(token, secret);
+      next();
+    } catch (err) {
+      res.status(403).json({ msg: "Not a valid token" });
+    }
+  }
+  else {
+    res.status(403).json({msg: "No token"});
+  }
+}
 
 
 
@@ -22,7 +41,8 @@ const DEFAULT_PORT = 8000;
 app.set('port', (process.env.PORT || DEFAULT_PORT));
 app.use(cors()); //allow all CORS requests
 app.use(express.json()); //for extracting json in the request-body
-app.use('/', express.static('public')); //for serving client files
+app.use('/', express.static('public'));
+//app.use('/users', protectEndpoints); //for serving client files
 //app.use("/users", userRoutes);
 
 // -----------------------------------------------
@@ -74,31 +94,31 @@ app.post('/users/register', async function (req, res) {
 
 app.post('/users/login', async function (req, res) {
 
-  let updata = req.body;    
+  let updata = req.body;
 
   let sql = 'SELECT * FROM users WHERE email = $1';
   let values = [updata.email];
 
   try {
-      let result = await pool.query(sql, values);
+    let result = await pool.query(sql, values);
 
-      if (result.rows.length == 0) {
-          res.status(400).json({ msg: "User doesn't exists" });
+    if (result.rows.length == 0) {
+      res.status(400).json({ msg: "User doesn't exists" });
+    }
+    else {
+      let check = bcrypt.compareSync(updata.passwrd, result.rows[0].pswhash);
+      if (check == true) {
+        let payload = { userid: result.rows[0].id };
+        let tok = jwt.sign(payload, secret, { expiresIn: "12h" });
+        res.status(200).json({ email: result.rows[0].email, userid: result.rows[0].id, token: tok });
       }
       else {
-          let check = bcrypt.compareSync(updata.passwrd, result.rows[0].pswhash);
-          if (check == true) {
-              let payload = { userid: result.rows[0].id };
-              let tok = jwt.sign(payload, secret, { expiresIn: "12h" });
-              res.status(200).json({ email: result.rows[0].email, userid: result.rows[0].id, token: tok });
-          }
-          else {
-              res.status(400).json({ msg: "Wrong password" });
-          }
+        res.status(400).json({ msg: "Wrong password" });
       }
+    }
   }
   catch (err) {
-      res.status(500).json({ error: err });
+    res.status(500).json({ error: err });
   }
 });
 

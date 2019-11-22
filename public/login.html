@@ -17,10 +17,10 @@
     </div>
 
     <h3>Santorini</h3>
-    <input type="text" id="email" placeholder="E-mail">
+    <input type="text" id="inpEmail" placeholder="E-mail">
     <input type="password" id="inpPassword" placeholder="Password">
     <br><br>
-    <button onclick="btnlogin()">Login</button>
+    <button id="btnlogin">Login</button>
     <h3 id="textResult">Result...</h3>
 
     <div id="container"></div>
@@ -34,11 +34,10 @@
 <script>
     let email = document.getElementById("email");
     let password = document.getElementById("password");
+    let btnlogin = document.getElementById("btnlogin");
     let textResult = document.getElementById('txtResult');
-    async function sendRequest() {
 
-
-
+    btnlogin.addEventListener('click', async function (evt) {
 
         let url = "http://localhost:8000/users/login";
 
@@ -58,7 +57,7 @@
             let data = await resp.text();
 
             if (resp.status > 202) {
-                throw(data);
+                throw (data);
             };
 
             txtResult.innerHTML = data.email + "is logged in!";
@@ -67,22 +66,7 @@
         catch (err) {
             console.log(err);
         }
-    }
-
-    function btnregister() {
-        window.location.href = "register.html"
-    }
-
-    function btnlogin() {
-        sendRequest();
-        console.log("Login")
-    }
-
-    function btnhome() {
-        window.location.href = "index.html";
-    }
-
-    /* JavaScript here... */
+    });
 
 </script>
 
