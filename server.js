@@ -8,8 +8,9 @@ const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs');
 const express = require('express');
 const cors = require('cors'); //when the clients aren't on the server
-const app = express();//server-app
-//const userRoutes = require("./routs/user.js");
+const app = express(); //server-app
+
+const gameRoutes = require("./routs/game.js");
 
 let logindata;
 
@@ -41,9 +42,12 @@ const DEFAULT_PORT = 8000;
 app.set('port', (process.env.PORT || DEFAULT_PORT));
 app.use(cors()); //allow all CORS requests
 app.use(express.json()); //for extracting json in the request-body
-app.use('/', express.static('public'));
-//app.use('/users', protectEndpoints); //for serving client files
-//app.use("/users", userRoutes);
+app.use('/', express.static('public')); //for serving client files
+app.use('/login',express.static('public/login.html'));
+app.use('/home',express.static('public/index.html'));
+app.use('/reqister',express.static('public/register.html'));
+app.use("/games", gameRoutes);
+
 
 // -----------------------------------------------
 
