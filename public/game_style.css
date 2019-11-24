@@ -2,6 +2,7 @@
 
     position:absolute;
 
+    top: 13%;
     left: 30%;
     padding: 20px;
     margin: 20px;
@@ -41,5 +42,22 @@
     top: 55%;
     left: 61.5%;
     
+}
+
+#currentTeamText{
+
+    position: absolute;
+
+    top: 10%;
+    left: 40%;
+}
+
+#startbtn{
+
+
+    position: absolute;
+    top: 18%;
+    left: 27%;
+
 }
 
