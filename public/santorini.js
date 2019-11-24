@@ -191,24 +191,19 @@ function checkValidCapture(x, y) {
     else return false;
 }
 
-function moveSelectedPiece(x, y) {
-
-    /*board.tiles[y][x].pieceType = board.tiles[curY][curX].pieceType;
+function moveSelectedPiece(x, y) { 
+    board.tiles[y][x].pieceType = board.tiles[curY][curX].pieceType;
     board.tiles[y][x].team = board.tiles[curY][curX].team;
 
     board.tiles[curY][curX].pieceType = EMPTY;
     board.tiles[curY][curX].team = EMPTY;
-*/
-    updateServerMove( board.tiles[y][x],{newCor:{x:x,y:y},oldCor:{x:curX,y:curY}});
 
-    console.log(board.tiles[y][x].pieceType)
-    console.log(board.tiles[y][x].team)
     curX = -1;
     curY = -1;
     board.resetValidMoves();
     MODE = BUILD;
 
-
+    updateServerMove( board.tiles[y][x],{newCor:{x:x,y:y},oldCor:{x:curX,y:curY}});
 }
 
 function buildSelectedPiece(x, y) {
@@ -412,9 +407,7 @@ class Tile {
 }
 
 async function updateServerMove (tile,pos){
-    let gameId = localStorage.getItem('gameId');
-    console.log(gameId);
-    let url = `http://localhost:8000/games/game/${gameId}`;
+    let url = `http://localhost:8000/games/turn`;
 
 
 
@@ -432,10 +425,8 @@ async function updateServerMove (tile,pos){
 
     try {
         let resp = await fetch(url,cfg);
-        let data = await resp.json();
+        let data = await resp.text();
         console.log(data);
-        board.tiles = data;
-        
 
     }
     catch (err) {

@@ -46,7 +46,9 @@ app.use('/', express.static('public')); //for serving client files
 app.use('/login',express.static('public/login.html'));
 app.use('/home',express.static('public/index.html'));
 app.use('/reqister',express.static('public/register.html'));
+app.use('/games',express.static('public/game.html'));
 app.use("/games", gameRoutes);
+//app.use('/games/game/:gameId',express.static('public/gameBoard.html'));
 
 
 // -----------------------------------------------
