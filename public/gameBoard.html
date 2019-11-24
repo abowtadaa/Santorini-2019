@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My document</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="game_style.css">
 
 
 </head>
@@ -28,11 +29,11 @@
     </div>
     <div>
         <div id="container">
-            <textarea readonly id="chatOutput" rows="4" cols="50" wrap="hard">Chat with your opponent</textarea>
+            <textarea readonly id="chatOutput" rows="20" cols="40" wrap="hard">Chat with your opponent</textarea>
         </div>
         <label for="chat">Chat</label>
         <input id="chat">
-        <button onclick="btnsendChat()">Send</button>
+        <button id="sendbutton" onclick="btnsendChat()">Send</button>
     </div>
     <!-- HTML elements here... -->
 
