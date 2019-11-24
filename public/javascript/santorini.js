@@ -1,10 +1,8 @@
 const BOARD_WIDTH = 5;
 const BOARD_HEIGHT = 5;
 
-let host;
-let secondPlayer;
 
-const TILE_SIZE = 50;
+const TILE_SIZE = 75;
 const WHITE_TILE_COLOR = "rgb(255, 228, 196)";
 const BLACK_TILE_COLOR = "rgb(206, 162, 128)";
 const HIGHLIGHT_COLOR = "rgb(75, 175, 75)";
@@ -105,7 +103,7 @@ function onClick(event) {
                 /*if (currentTeam === WHITE) whiteVictories++;
                 else blackVictories++;*/
 
-                //startGame();
+                startGame();
             }
             moveSelectedPiece(x, y);
 
@@ -203,7 +201,7 @@ function moveSelectedPiece(x, y) {
     board.resetValidMoves();
     MODE = BUILD;
 
-    updateServer( board.tiles[y][x],{x:x,y:y})
+    updateServer( board.tiles[y][x],{newCor:{x:x,y:y},oldCor:{x:curX,y:curY}})
 }
 
 function buildSelectedPiece(x, y) {
@@ -407,7 +405,7 @@ class Tile {
 }
 
 async function updateServer (tile,pos){
-    let url = `http://localhost:8000/games/`;
+    let url = `http://localhost:8000/games/turn`;
 
 
 
@@ -416,19 +414,16 @@ async function updateServer (tile,pos){
         pos:pos
     };
 
-    /*let cfg = {
+    let cfg = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updata)
-    };*/
-    //console.log(cfg);
-
+    };
 
 
     try {
-        let resp = await fetch(url);
+        let resp = await fetch(url,cfg);
         let data = await resp.text();
-        data = JSON.parse(data);
         console.log(data);
 
     }

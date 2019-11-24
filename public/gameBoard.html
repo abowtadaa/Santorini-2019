@@ -25,6 +25,7 @@
     <div>
         <canvas id="canvas" width="400" height="400"></canvas>
         <h2 id="currentTeamText"></h2>
+        <button onclick="btnstartGame()">Start</button>
     </div>
     <div>
         <div id="container">
@@ -39,20 +40,48 @@
 </body>
 <script src="javascript/santorini.js"></script>
 <script>
-    function btnlogin() {
-        window.location.href = "login.html";
-    }
-    function btnhome() {
-        window.location.href = "index.html";
-    }
+
     function btnsendChat() {
         console.log("Hello from button chat");
         sendChat();
+    }
+
+    function btnstartGame() {
+        startNewGame ();
     }
     let chat = document.getElementById("chat");
     let chatOutput = document.getElementById("chatOutput");
 
     let container = document.getElementById("container");
+
+    async function startNewGame (){
+        let url = "http://localhost:8000/games/start";
+
+
+
+        /*let updata = {
+            chat: chat.value
+        };
+
+        let cfg = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updata)
+        };*/
+
+
+
+        try {
+            let resp = await fetch(url);
+            let data = await resp.text();
+
+
+            console.log(data); //hello from POST
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
 
     async function sendChat() {
         let url = "http://localhost:8000/game-chat";
