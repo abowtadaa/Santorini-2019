@@ -10,7 +10,9 @@
 
 <body>
     <div class="topnav">
+        <div class="class_Class">
         <a href="index.html">Home</a>
+    </div>
         <a class="active" href="login.html">Login</a>
         <a href="register.html">Sign up</a>
         <a href="gameBoard.html">Games</a>
@@ -21,7 +23,7 @@
     <input type="password" id="inpPassword" placeholder="Password">
     <br><br>
     <button id="btnlogin">Login</button>
-    <h3 id="textResult">Result...</h3>
+    <h3 id="txtResult">Result...</h3>
 
     <div id="container"></div>
 
@@ -33,14 +35,13 @@
 
 <script>
     let email = document.getElementById("inpEmail");
-    let password = document.getElementById("password");
+    let password = document.getElementById("inpPassword");
     let btnlogin = document.getElementById("btnlogin");
-    let textResult = document.getElementById('txtResult');
+    let txtResult = document.getElementById('txtResult');
 
     btnlogin.addEventListener('click', async function (evt) {
 
         let url = "http://localhost:8000/users/login";
-        console.log(inpEmail.value);
 
         let updata = {
             email: inpEmail.value,
@@ -56,13 +57,17 @@
         try {
             let resp = await fetch(url, cfg);
             let data = await resp.text();
+            console.log(data.email);
 
             if (resp.status > 202) {
+                txtResult.innerHTML = "Wrong username or password";
                 throw (data);
             };
+            
 
-            txtResult.innerHTML = data.email + "is logged in!";
+            txtResult.innerHTML = "Login successful";
             sessionStorage.setItem("logindata", JSON.stringify(data));
+            window.location.href = "startgame.html";
         }
         catch (err) {
             console.log(err);

@@ -1,0 +1,45 @@
+#canvas{
+
+    position:absolute;
+
+    left: 30%;
+    padding: 20px;
+    margin: 20px;
+
+    text-align: center;
+
+
+
+}
+
+
+#container{
+
+    position:absolute;
+
+    top: 18%;
+    left: 52%;
+
+
+    
+
+}
+
+#chat{
+
+    position:absolute;
+
+    top: 55%;
+    left: 52%;
+    
+}
+
+#sendbutton{
+
+    position:absolute;
+
+    top: 55%;
+    left: 61.5%;
+    
+}
+

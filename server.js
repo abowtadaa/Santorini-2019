@@ -110,7 +110,7 @@ app.post('/users/login', async function (req, res) {
       res.status(400).json({ msg: "User doesn't exists" });
     }
     else {
-      let check = bcrypt.compareSync(updata.passwrd, result.rows[0].pswhash);
+      let check = bcryptjs.compareSync(updata.password, result.rows[0].pswhash);
       if (check == true) {
         let payload = { userid: result.rows[0].id };
         let tok = jwt.sign(payload, secret, { expiresIn: "12h" });
