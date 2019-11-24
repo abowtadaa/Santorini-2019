@@ -4,7 +4,7 @@ const BOARD_HEIGHT = 5;
 let host;
 let secondPlayer;
 
-const TILE_SIZE = 50;
+const TILE_SIZE = 75;
 const WHITE_TILE_COLOR = "rgb(51, 204, 51)";
 const BLACK_TILE_COLOR = "rgb(0, 153, 51)";
 const HIGHLIGHT_COLOR = "rgb(255, 0, 255)";
@@ -33,11 +33,11 @@ const buildType = {
 }
 
 const piecesCharacters = {
-    0: '⚒',
-    1: '▁',
-    2: '▃',
-    3: '▆',
-    4: '☗',
+    0: ' ⚒',
+    1: ' ▁',
+    2: ' ▃',
+    3: ' ▆',
+    4: ' ☗',
 
 };
 
