@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My document</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="homepage_style.css">
+</head>
+
+<body>
+
+<div class="topnav">
+    <a class="active" href="index.html">Home</a>
+    <a href="login.html">Login</a>
+    <a href="register.html">Sign up</a>
+    <a href="gameBoard.html">Games</a>
+</div>
+
+<div class="rules">
+    <button onclick="JoinGame()">Join a game</button>
+</div>
+
+</body>
+
+<script>
+
+    // ---------------------------------------
+    async function JoinGame() {
+
+        let url = "http://localhost:8000/games/start";
+
+        try {
+            let resp = await fetch(url);
+            let data = await resp.text();
+
+
+            localStorage.setItem('gameId', data);
+
+            window.location.href=`games/game/${data}`;
+
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+
+</script>
+
+</html>
