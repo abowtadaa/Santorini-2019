@@ -28,6 +28,8 @@
         <br><br>
         <button id="btnregisterUser">Create user</button>
         <h3 id="txtResult">Result...</h3>
+        <button id="btndeleteUser">Delete user</button>
+        <h3 id="delResult">Yeet</h3>
     </div>
 
 </body>
@@ -40,10 +42,12 @@
     let username = document.getElementById("username");
     let password = document.getElementById("password");
     let btnregisterUser = document.getElementById("btnregisterUser");
+    let btndeleteUser = document.getElementById("btndeleteUser");
 
+    let url = "http://localhost:8000/users/register";
+
+// ------------------------------------------------------------------------------------------
     btnregisterUser.addEventListener('click', async function (evt) {
-
-        let url = "http://localhost:8000/users/register";
 
         let updata = {
             username: username.value,
@@ -67,73 +71,111 @@
             console.log(err);
         }
     });
+// ------------------------------------------------------------------------------------------
+    /*btndeleteUser.addEventListener('click', function (evt) {
+        deleteUser(value.id);
+        console.log(id);
+    });
 
+    async function deleteUser(id) {
+
+        let updata = { userid: id };
+
+        let logindata = JSON.parse(sessionStorage.getItem("logindata"));
+        let token = logindata.token;
+
+        let cfg = {
+            method: "DELETE",
+            headers: {
+                "authorization": token,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updata)
+        }
+
+        try {
+            let resp = await fetch(url, cfg);
+            delResult.innerHTML = "Delete successful"; 
+
+            if (resp.status > 202) {
+                throw (data);
+                delResult.innerHTML = "Something went wrong";
+            };
+
+        }
+        catch (err) {
+            console.log(err);
+        }
+    };*/
+
+    
 
     /* async function sendRequest() {
- 
-         if (eMail.value === eMailCheck.value) {
-             if (checkUser(userName.value)) {
- 
- 
-                 //container.innerHTML = "";
-                 let HTML = `
-             <p3>${data}</p3>
-             `;
-                 let div = document.createElement("div");
-                 div.innerHTML = HTML;
-                 container.appendChild(div);
- 
-                 console.log(data); //hello from POST
-             }
- 
-         } else {
-             console.log("The email is not the same!")
-         }
-     }
- 
-     function checkEmail() {
-         if (eMail.value === eMailCheck.value) {
-             return true
-         }
-     }
- 
-     function checkUser(input) {
-         let output = input;
-         if (input) {
-             let whitespace = /\s/.test(input);
-             if (whitespace) {
-                 console.log("You cant have spaces in your username!");
-                 return false
-             }
-             let slashes = /\//.test(output);
-             if (slashes) {
-                 sendError("You cant have slashes in your username!");
-                 return false
-             }
-             let questions = /\?/.test(output);
-             if (questions) {
-                 sendError("You cant have '?' in your username!");
-                 return false;
-             }
-             let percent = /%/.test(output);
-             if (percent) {
-                 sendError("You cant have '%' in your username!");
-                 return false;
-             }
-             if (!output) {
-                 sendError("Valid usernames are filtered for whitespace, forward slashes, questions marks and percent signs.");
-                 return null;
-             }
-             return true;
-         }
-         else {
-             return null;
-         }
-     }
- 
-     function sendError(err) {
-         console.log(err);
-     }*/
+
+          if (eMail.value === eMailCheck.value) {
+              if (checkUser(userName.value)) {
+
+
+                  //container.innerHTML = "";
+                  let HTML = `
+              <p3>${data}</p3>
+              `;
+                  let div = document.createElement("div");
+                  div.innerHTML = HTML;
+                  container.appendChild(div);
+
+                  console.log(data); //hello from POST
+              }
+
+          } else {
+              console.log("The email is not the same!")
+          }
+      }
+
+      function checkEmail() {
+          if (eMail.value === eMailCheck.value) {
+              return true
+          }
+      }
+
+      function checkUser(input) {
+          let output = input;
+          if (input) {
+
+              let whitespace = /\s/.test(input);
+              if (whitespace) {
+                  console.log("You cant have spaces in your username!");
+                  return false
+              }
+              let slashes = /\//.test(output);
+              if (slashes) {
+                  sendError("You cant have slashes in your username!");
+                  return false
+              }
+              let questions = /\?/.test(output);
+              if (questions) {
+                  sendError("You cant have '?' in your username!");
+                  return false;
+              }
+              let percent = /%/.test(output);
+              if (percent) {
+                  sendError("You cant have '%' in your username!");
+                  return false;
+              }
+              if (!output) {
+                  sendError("Valid usernames are filtered for whitespace, forward slashes, questions marks and percent signs.");
+                  return null;
+              }
+              return true;
+          }
+          else {
+              return null;
+          }
+      }
+
+      function sendError(err) {
+          console.log(err);
+      }*/
 
 
 </script>

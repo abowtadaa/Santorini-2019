@@ -27,7 +27,7 @@ function protectEndpoints(req, res, next) {
     }
   }
   else {
-    res.status(403).json({msg: "No token"});
+    res.status(403).json({ msg: "No token" });
   }
 }
 
@@ -43,9 +43,9 @@ app.set('port', (process.env.PORT || DEFAULT_PORT));
 app.use(cors()); //allow all CORS requests
 app.use(express.json()); //for extracting json in the request-body
 app.use('/', express.static('public')); //for serving client files
-app.use('/login',express.static('public/login.html'));
-app.use('/home',express.static('public/index.html'));
-app.use('/reqister',express.static('public/register.html'));
+app.use('/login', express.static('public/login.html'));
+app.use('/home', express.static('public/index.html'));
+app.use('/reqister', express.static('public/register.html'));
 app.use("/games", gameRoutes);
 
 
@@ -125,6 +125,28 @@ app.post('/users/login', async function (req, res) {
     res.status(500).json({ error: err });
   }
 });
+
+/*app.delete('/users/register', async function (req, res) {
+
+  let updata = req.body; //the data sent from the client
+
+  let sql = 'DELETE FROM users WHERE id = $1 RETURNING *';
+  let values = [updata.userid];
+
+  try {
+    let result = await pool.query(sql, values);
+
+    if (result.rows.length > 0) {
+      res.status(200).json({ msg: "Delete OK" });
+    }
+    else {
+      throw "Delete failed";
+    }
+  }
+  catch (err) {
+    res.status(500).json({ error: err });
+  }
+});*/
 
 app.post('/game-chat', function (req, res) {
   //console.log((req.body)); //Send chat
