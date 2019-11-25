@@ -3,6 +3,7 @@ const dbURI = "postgres://uuvcwgoifcnizu:2316c7908138ef053a96645eb6abd39e84e8b36
 const connstring = process.env.DATABASE_URL || dbURI;
 const pool = new pg.Pool({ connectionString: connstring });
 
+const bodyParser = require('body-parser');
 const secret = "hitlerdidnothingwrong";
 const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs');
@@ -42,13 +43,14 @@ const DEFAULT_PORT = 8000;
 app.set('port', (process.env.PORT || DEFAULT_PORT));
 app.use(cors()); //allow all CORS requests
 app.use(express.json()); //for extracting json in the request-body
+app.use(bodyParser.json());
 app.use('/', express.static('public')); //for serving client files
 app.use('/login',express.static('public/login.html'));
 app.use('/home',express.static('public/index.html'));
 app.use('/reqister',express.static('public/register.html'));
 app.use('/games',express.static('public/game.html'));
 app.use("/games", gameRoutes);
-//app.use('/games/game/:gameId',express.static('public/gameBoard.html'));
+
 
 
 // -----------------------------------------------

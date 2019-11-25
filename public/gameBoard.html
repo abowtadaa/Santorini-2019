@@ -28,7 +28,7 @@
         <h2 id="currentTeamText"></h2>
         <button id=startbtn onclick="btnstartGame()">Start</button>
     </div>
-    <div>
+    <!--<div>
         <div id="container">
         <textarea readonly id="chatOutput" rows="20" cols="40" wrap="hard">Chat with your opponent</textarea>
         </div>
@@ -36,6 +36,7 @@
         <input id="chat">
         <button id="sendbutton" onclick="btnsendChat()">Send</button>
     </div>
+    -->
     <!-- HTML elements here... -->
 
 </body>
@@ -59,7 +60,7 @@
     let container = document.getElementById("container");
 
     async function startNewGame (){
-        let url = "http://localhost:8000/games/start";
+        let url = "games/start";
 
 
 

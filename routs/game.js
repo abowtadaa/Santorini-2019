@@ -12,10 +12,11 @@ route.use('/game/:gameId',express.static('./public/gameBoard.html'));
 
 
 route.get("/game/:gameId",function (req,res){
-    let thisGame = req.params.gameId;
+    console.log("I am in get game")
+    //let thisGame = req.params.gameId;
     console.log(thisGame);
     console.log(games[thisGame]);
-    res.status(200).send(games[thisGame]);
+    res.status(200).json(games[thisGame].board.tile);
 })
 
 route.post("/game/:gameId",function (req,res) {
@@ -29,6 +30,15 @@ route.post("/game/:gameId",function (req,res) {
     }else{
         res.status(204).send("This game doesnt exist");
     }
+})
+
+route.post("/game/update/:gameId",function (req,res){
+
+    console.log("I am in get game")
+    let thisGame = req.params.gameId;
+    console.log(thisGame);
+    console.log(games[thisGame]);
+    res.status(200).json(games[thisGame].board.tile);
 })
 
 route.get("/start",function (req,res){
@@ -179,98 +189,3 @@ function Tile (pieceType,team,buildType) {
     this.buildType = 0;
 }
 
-
-/*
-class Board {
-
-    constructor() {
-        const EMPTY = -1;
-        const BUILDER = 0;
-
-        var buildType = {
-            EMPTY:0,
-            FIRSTFLOOR:1,
-            SECONDFLOOR:2,
-            THIRDFLOOR:3,
-            DOME:4
-        }
-        this.tiles = [];
-
-        this.tiles.push([
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-
-        ]);
-        this.tiles.push([
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-            new Tile(BUILDER, WHITE,buildType.EMPTY),
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-            new Tile(BUILDER, BLACK,buildType.EMPTY),
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-
-        ]);
-        this.tiles.push([
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-
-        ]);
-        this.tiles.push([
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-            new Tile(BUILDER, BLACK,buildType.EMPTY),
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-            new Tile(BUILDER, WHITE,buildType.EMPTY),
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-
-        ]);
-        this.tiles.push([
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-            new Tile(EMPTY, EMPTY,buildType.EMPTY),
-
-        ]);
-
-
-
-
-        this.validMoves = [];
-        for (let i = 0; i < BOARD_HEIGHT; i++) {
-            this.validMoves.push([
-                INVALID,
-                INVALID,
-                INVALID,
-                INVALID,
-                INVALID,
-                INVALID,
-                INVALID,
-                INVALID
-
-            ]);
-        }
-    }
-
-    resetValidMoves() {
-        for (let i = 0; i < BOARD_HEIGHT; i++) {
-            for (let j = 0; j < BOARD_WIDTH; j++) {
-                this.validMoves[i][j] = INVALID;
-            }
-        }
-
-    }
-}
-
-class Tile {
-    constructor(pieceType, team, builType) {
-        this.pieceType = pieceType;
-        this.team = team;
-        this.buildType = 0;
-    }
-}
-*/

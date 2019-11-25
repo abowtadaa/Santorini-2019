@@ -65,6 +65,8 @@ function onLoad() {
     santoriniCtx = santoriniCanvas.getContext("2d");
     santoriniCanvas.addEventListener("click", onClick);
 
+    //window.setTimeout(updatePage, 1000);
+
     currentTeamText = document.getElementById("currentTeamText");
 
     
@@ -193,16 +195,14 @@ function checkValidCapture(x, y) {
 
 function moveSelectedPiece(x, y) {
 
-    /*board.tiles[y][x].pieceType = board.tiles[curY][curX].pieceType;
+    board.tiles[y][x].pieceType = board.tiles[curY][curX].pieceType;
     board.tiles[y][x].team = board.tiles[curY][curX].team;
 
     board.tiles[curY][curX].pieceType = EMPTY;
     board.tiles[curY][curX].team = EMPTY;
-*/
-    updateServerMove( board.tiles[y][x],{newCor:{x:x,y:y},oldCor:{x:curX,y:curY}});
 
-    console.log(board.tiles[y][x].pieceType)
-    console.log(board.tiles[y][x].team)
+    //updateServerMove( board.tiles[y][x],{newCor:{x:x,y:y},oldCor:{x:curX,y:curY}});
+
     curX = -1;
     curY = -1;
     board.resetValidMoves();
@@ -414,7 +414,7 @@ class Tile {
 async function updateServerMove (tile,pos){
     let gameId = localStorage.getItem('gameId');
     console.log(gameId);
-    let url = `http://localhost:8000/games/game/${gameId}`;
+    let url = `/games/game/${gameId}`;
 
 
 
@@ -435,8 +435,24 @@ async function updateServerMove (tile,pos){
         let data = await resp.json();
         console.log(data);
         board.tiles = data;
-        
 
+
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+async function updatePage () {
+    let gameId = localStorage.getItem('gameId');
+    let url = `/games/game/${gameId}`;
+    console.log(url);
+
+
+    try {
+        let resp = await fetch(url);
+        let data = await resp.json();
+        //board.tiles = data;
     }
     catch (err) {
         console.log(err);
