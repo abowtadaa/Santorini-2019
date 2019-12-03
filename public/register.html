@@ -48,6 +48,8 @@
     let btnregisterUser = document.getElementById("btnregisterUser");
     //let btndeleteUser = document.getElementById("btndeleteUser");
 
+    btnregisterUser.addEventListener('click', async function(evt) {
+
         let url = "users/register";
 
         let updata = {
@@ -71,6 +73,7 @@
         catch (err) {
             console.log(err);
         };
+    });
 // ------------------------------------------------------------------------------------------
     /*btndeleteUser.addEventListener('click', function (evt) {
         deleteUser(value.id);
